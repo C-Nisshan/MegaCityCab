@@ -39,7 +39,6 @@ public class LoginServlet extends HttpServlet {
         boolean success = role != null;
         LoginDAO loginDAO = new LoginDAO(DatabaseConnection.getInstance().getConnection());
         loginDAO.logLoginAttempt(username, ipAddress, success);
-        loginDAO.updateLoginMetadata(username);
 
         if (role != null) {
             request.getSession().setAttribute("username", username);
