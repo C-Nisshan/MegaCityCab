@@ -33,12 +33,35 @@
         <url-pattern>/user/home</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>CarServlet</servlet-name>
+        <servlet-class>com.megacitycab.megacitycab.servlets.CarServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CarServlet</servlet-name>
+        <url-pattern>/admin/manage_cars</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>CarServlet</servlet-name>
+        <url-pattern>/admin/edit_car</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DriverServlet</servlet-name>
+        <servlet-class>com.megacitycab.megacitycab.servlets.DriverServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DriverServlet</servlet-name>
+        <url-pattern>/admin/manage_drivers</url-pattern>
+    </servlet-mapping>
+
     <listener>
         <listener-class>com.megacitycab.megacitycab.listeners.AppStartupListener</listener-class>
     </listener>
 
     <session-config>
-        <session-timeout>30</session-timeout> <!-- 30 minutes -->
+        <session-timeout>30</session-timeout>
     </session-config>
 
     <welcome-file-list>

@@ -1,7 +1,6 @@
 package com.megacitycab.megacitycab.dao;
 
 import com.megacitycab.megacitycab.models.User;
-import com.megacitycab.megacitycab.utils.PasswordUtils;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.Connection;

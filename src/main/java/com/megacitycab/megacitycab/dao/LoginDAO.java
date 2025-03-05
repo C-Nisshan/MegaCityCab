@@ -35,13 +35,4 @@ public class LoginDAO {
         }
     }
 
-    public void updateLoginMetadata(String username) {
-        String sql = "UPDATE User SET last_login = NOW(), login_count = login_count + 1 WHERE username = ?";
-        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            pstmt.setString(1, username);
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 }
