@@ -8,7 +8,7 @@ public class AdminSeeder {
         UserDAO userDAO = new UserDAO(DatabaseConnection.getInstance().getConnection());
 
         if (!userDAO.isAdminExists()) {
-            User admin = new User("admin", "admin123", "Admin Name", "Admin Address", "123456789V", "0771234567", "admin@megacitycab.com", "Admin");
+            User admin = new User(1,"admin", "admin123", "Admin Name", "Admin Address", "123456789V", "0771234567", "admin@megacitycab.com", "Admin");
             userDAO.createUser(admin);
             System.out.println("Default admin created with hashed password.");
         }

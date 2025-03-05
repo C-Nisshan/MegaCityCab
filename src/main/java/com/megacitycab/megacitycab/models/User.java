@@ -1,6 +1,7 @@
 package com.megacitycab.megacitycab.models;
 
 public class User {
+    private int id;
     private String username;
     private String password;
     private String name;
@@ -12,7 +13,12 @@ public class User {
     private String createdAt;
     private String updatedAt;
 
-    public User(String username, String password, String name, String address, String nic, String telephone, String email, String role) {
+    // No-argument constructor (added)
+    public User() {
+    }
+
+    public User(int id, String username, String password, String name, String address, String nic, String telephone, String email, String role) {
+        this.id = id;
         this.username = username;
         this.password = password;
         this.name = name;
@@ -24,6 +30,14 @@ public class User {
     }
 
     // Getters and Setters
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {  // Add setter for id
+        this.id = id;
+    }
 
     public String getUsername() {
         return username;
