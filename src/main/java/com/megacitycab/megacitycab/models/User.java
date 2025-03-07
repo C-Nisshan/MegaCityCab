@@ -29,6 +29,24 @@ public class User {
         this.role = role;
     }
 
+    public User(int id, String username, String name, String address, String nic, String telephone, String email, String role) {
+        this.id = id;
+        this.username = username;
+        this.name = name;
+        this.address = address;
+        this.nic = nic;
+        this.telephone = telephone;
+        this.email = email;
+        this.role = role;
+    }
+
+
+    public User(int id, String username, String name) {
+        this.id = id;
+        this.username = username;
+        this.name = name;
+    }
+
     // Getters and Setters
 
     public int getId() {

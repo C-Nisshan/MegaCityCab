@@ -1,12 +1,10 @@
 package com.megacitycab.megacitycab.dao;
-
 import com.megacitycab.megacitycab.models.User;
 import org.mindrot.jbcrypt.BCrypt;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDAO {
     private final Connection connection;
@@ -14,6 +12,7 @@ public class UserDAO {
     public UserDAO(Connection connection) {
         this.connection = connection;
     }
+
 
     public boolean isAdminExists() {
         try (PreparedStatement stmt = connection.prepareStatement("SELECT COUNT(*) FROM User WHERE role = 'Admin'")) {
@@ -27,10 +26,14 @@ public class UserDAO {
         return false;
     }
 
-    public void createUser(User user) {
+    public int createUser(User user) {
+        int generatedUserId = -1; // Default value if not retrieved
+
         try (PreparedStatement stmt = connection.prepareStatement(
-                "INSERT INTO User (username, password, name, address, nic, telephone, email, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")) {
-            String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(12)); // Hash the password before storing
+                "INSERT INTO user (username, password, name, address, nic, telephone, email, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                Statement.RETURN_GENERATED_KEYS)) {
+
+            String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(12)); // Hash password
             stmt.setString(1, user.getUsername());
             stmt.setString(2, hashedPassword);
             stmt.setString(3, user.getName());
@@ -39,9 +42,109 @@ public class UserDAO {
             stmt.setString(6, user.getTelephone());
             stmt.setString(7, user.getEmail());
             stmt.setString(8, user.getRole());
-            stmt.executeUpdate();
+
+            int affectedRows = stmt.executeUpdate();
+            System.out.println("User Insertion: Affected Rows = " + affectedRows);
+
+            if (affectedRows > 0) {
+                try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        generatedUserId = generatedKeys.getInt(1);
+                        System.out.println("Generated User ID: " + generatedUserId); // Debugging
+                    } else {
+                        System.out.println("No generated key returned.");
+                    }
+                }
+            } else {
+                System.out.println("User insertion failed!");
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+        return generatedUserId;
+    }
+
+    public List<User> getAllUsers() {
+        List<User> userList = new ArrayList<>();
+        String query = "SELECT * FROM user";
+
+        try (PreparedStatement stmt = connection.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setUsername(rs.getString("username"));
+                user.setPassword(rs.getString("password"));
+                user.setName(rs.getString("name"));
+                user.setAddress(rs.getString("address"));
+                user.setNic(rs.getString("nic"));
+                user.setTelephone(rs.getString("telephone"));
+                user.setEmail(rs.getString("email"));
+                user.setRole(rs.getString("role"));
+                user.setCreatedAt(rs.getString("created_at"));
+                user.setUpdatedAt(rs.getString("updated_at"));
+
+                userList.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userList;
+    }
+
+    // delete user
+    public boolean deleteUser(int userId) {
+        String query = "DELETE FROM user WHERE id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, userId);
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public User getUserById(int userId) {
+        User user = null;
+        String query = "SELECT * FROM user WHERE id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                user = new User();
+                user.setId(rs.getInt("id"));
+                user.setUsername(rs.getString("username"));
+                user.setPassword(rs.getString("password"));
+                user.setName(rs.getString("name"));
+                user.setAddress(rs.getString("address"));
+                user.setNic(rs.getString("nic"));
+                user.setTelephone(rs.getString("telephone"));
+                user.setEmail(rs.getString("email"));
+                user.setRole(rs.getString("role"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+
+    public boolean updateUser(User user) {
+        String query = "UPDATE user SET username=?, password=?, name=?, address=?, nic=?, telephone=?, email=? WHERE id=?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, user.getUsername());
+            stmt.setString(2, user.getPassword());
+            stmt.setString(3, user.getName());
+            stmt.setString(4, user.getAddress());
+            stmt.setString(5, user.getNic());
+            stmt.setString(6, user.getTelephone());
+            stmt.setString(7, user.getEmail());
+            stmt.setInt(8, user.getId());
+            return stmt.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
     }
 
