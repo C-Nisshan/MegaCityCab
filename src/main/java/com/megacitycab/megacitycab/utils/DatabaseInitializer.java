@@ -104,6 +104,17 @@ public class DatabaseInitializer {
                             ");";
             stmt.execute(createDriverTable);
 
+            // Create Customer table
+            String createCustomerTable =
+                    "CREATE TABLE IF NOT EXISTS Customer (" +
+                            "    customer_id INT AUTO_INCREMENT PRIMARY KEY," +
+                            "    user_id INT UNIQUE NOT NULL," +
+                            "    created_at DATETIME DEFAULT CURRENT_TIMESTAMP," +
+                            "    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP," +
+                            "    FOREIGN KEY (user_id) REFERENCES User(id) ON DELETE CASCADE" +
+                            ");";
+            stmt.execute(createCustomerTable);
+
             System.out.println("All tables checked/created successfully.");
 
         } catch (Exception e) {

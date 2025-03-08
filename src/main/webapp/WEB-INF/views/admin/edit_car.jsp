@@ -24,8 +24,9 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     </head>
     <body>
+        <jsp:include page="/WEB-INF/views/admin/sidebar.jsp"/>
         <div class="container">
-            <jsp:include page="/WEB-INF/views/admin/sidebar.jsp"/>
+
             <div class="content">
                 <h2>Edit Car</h2>
 

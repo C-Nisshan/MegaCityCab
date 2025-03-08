@@ -15,7 +15,7 @@ public class DriverDAO {
     }
 
     // Add a new driver
-    public boolean addDriver(Driver driver) {
+    public boolean createDriver(Driver driver) {
         String sql = "INSERT INTO driver (user_id, license_number, status, created_at, updated_at) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, driver.getUser().getId());

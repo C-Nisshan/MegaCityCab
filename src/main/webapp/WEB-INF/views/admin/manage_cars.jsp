@@ -18,10 +18,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Car Management</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .main-container {
+            display: flex;
+        }
+        .sidebar {
+            width: 250px;
+            flex-shrink: 0;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+        }
+    </style>
 </head>
 <body>
 
-<div class="container">
+<div class="main-container">
     <jsp:include page="/WEB-INF/views/admin/sidebar.jsp"/>
 
     <div class="content">
