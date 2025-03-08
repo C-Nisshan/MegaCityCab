@@ -9,25 +9,29 @@
 <html>
     <head>
         <title>Admin Dashboard</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <style>
+            .main-container {
+                display: flex;
+            }
+            .sidebar {
+                width: 250px;
+                flex-shrink: 0;
+            }
+            .content {
+                flex-grow: 1;
+                padding: 20px;
+            }
+        </style>
     </head>
     <body>
-        <div class="container">
-            <!-- Sidebar
-            <div class="sidebar">
-                <h3>Admin Panel</h3>
-                <a href="/MegaCityCab_war_exploded/admin/dashboard">Dashboard</a>
-                <a href="/MegaCityCab_war_exploded/admin/manage_cars">Car Management</a>
-            </div>
-            -->
-
+        <div class="main-container">
             <jsp:include page="/WEB-INF/views/admin/sidebar.jsp"/>
             <!-- Main Content -->
             <div class="content">
                 <h2>Welcome to Admin Dashboard</h2>
-
-                <!-- Include Manage Cars Section -->
-                <!-- jsp:include page="/WEB-INF/views/admin/manage_cars.jsp" /-->
             </div>
         </div>
     </body>
 </html>
+

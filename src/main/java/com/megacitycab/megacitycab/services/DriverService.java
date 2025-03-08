@@ -19,7 +19,7 @@ public class DriverService {
     }
 
     public void registerDriver(Driver driver) throws SQLException {
-        driverDAO.addDriver(driver);
+        driverDAO.createDriver(driver);
     }
 
     public Driver getDriver(int driverId) throws SQLException {

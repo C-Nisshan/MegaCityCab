@@ -56,6 +56,15 @@
         <url-pattern>/admin/manage_drivers</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>CustomerServlet</servlet-name>
+        <servlet-class>com.megacitycab.megacitycab.servlets.CustomerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CustomerServlet</servlet-name>
+        <url-pattern>/admin/manage_customers</url-pattern>
+    </servlet-mapping>
+
     <listener>
         <listener-class>com.megacitycab.megacitycab.listeners.AppStartupListener</listener-class>
     </listener>
