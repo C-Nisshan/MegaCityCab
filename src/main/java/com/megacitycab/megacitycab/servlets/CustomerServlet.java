@@ -76,6 +76,7 @@ public class CustomerServlet extends HttpServlet {
 
                 // Update User and Driver in Database
                 boolean userUpdated = userService.updateUser(user);
+                response.sendRedirect("manage_customers?success=CustomerUpdated");
             } else {
                 response.sendRedirect("manage_customers?error=InvalidAction");
             }
