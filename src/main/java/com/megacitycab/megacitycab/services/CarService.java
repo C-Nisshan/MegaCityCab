@@ -2,6 +2,7 @@ package com.megacitycab.megacitycab.services;
 
 import com.megacitycab.megacitycab.dao.CarDAO;
 import com.megacitycab.megacitycab.models.Car;
+import com.megacitycab.megacitycab.models.Driver;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.Part;
 
@@ -99,5 +100,21 @@ public class CarService {
 
     public boolean updateCar(Car car) {
         return carDAO.updateCar(car);
+    }
+
+    public boolean changeCarStatus(int carId, boolean isActive) {
+        return carDAO.updateCarStatus(carId, isActive);
+    }
+
+    public boolean changeAssignedCarStatus(int carId, String status) {
+        return carDAO.updateAssignedCarStatus(carId, status);
+    }
+
+    public List<Car> getAllCarsWithAssignedDriver() throws Exception {
+        return carDAO.getAllCarsWithAssignedDriver();
+    }
+
+    public List<Integer> getAssignedDriverIds() {
+        return carDAO.getAssignedDriverIds();
     }
 }

@@ -100,19 +100,6 @@ public class DriverDAO {
         }
     }
 
-    // Update driver status
-    public boolean updateDriverStatus(int driverId, String status) {
-        String sql = "UPDATE driver SET status = ?, updated_at = NOW() WHERE driver_id = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, status);
-            stmt.setInt(2, driverId);
-            return stmt.executeUpdate() > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
     // Delete a driver
     public boolean deleteDriver(int driverId) {
         String sql = "DELETE FROM driver WHERE driver_id = ?";
@@ -124,4 +111,20 @@ public class DriverDAO {
             return false;
         }
     }
+
+    public boolean updateDriverStatus(int driverId, String status) {
+        String query = "UPDATE Driver SET status = ? WHERE driver_id = ?";
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, status);
+            stmt.setInt(2, driverId);
+
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0; // Returns true if the update was successful
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }

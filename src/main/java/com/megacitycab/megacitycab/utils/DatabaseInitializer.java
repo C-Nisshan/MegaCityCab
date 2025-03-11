@@ -115,6 +115,19 @@ public class DatabaseInitializer {
                             ");";
             stmt.execute(createCustomerTable);
 
+            // Create Driver Assignment table
+            String createDriverAssignmentTable =
+                    "CREATE TABLE IF NOT EXISTS Driver_Assignment (" +
+                            "    driver_assignment_id INT AUTO_INCREMENT PRIMARY KEY," +
+                            "    car_id INT UNIQUE NOT NULL," +
+                            "    driver_id INT UNIQUE NOT NULL," +
+                            "    created_at DATETIME DEFAULT CURRENT_TIMESTAMP," +
+                            "    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP," +
+                            "    FOREIGN KEY (car_id) REFERENCES Car(car_id) ON DELETE CASCADE," +
+                            "    FOREIGN KEY (driver_id) REFERENCES Driver(driver_id) ON DELETE CASCADE" +
+                            ");";
+            stmt.execute(createDriverAssignmentTable);
+
             System.out.println("All tables checked/created successfully.");
 
         } catch (Exception e) {

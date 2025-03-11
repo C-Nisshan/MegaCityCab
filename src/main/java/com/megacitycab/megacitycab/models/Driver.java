@@ -18,6 +18,16 @@ public class Driver extends DateEntity{
         this.status = status;
     }
 
+    public Driver(int driverId, User user, String licenseNumber) {
+        this.driverId = driverId;
+        this.user = user;
+        this.licenseNumber = licenseNumber;
+    }
+
+    public Driver(int driverId) {
+        this.driverId = driverId;
+    }
+
     // Getters and Setters
     public int getDriverId() {
         return driverId;

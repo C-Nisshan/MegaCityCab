@@ -1,6 +1,9 @@
 package com.megacitycab.megacitycab.dao;
 
 import com.megacitycab.megacitycab.models.Car;
+import com.megacitycab.megacitycab.models.Driver;
+import com.megacitycab.megacitycab.models.User;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Connection;
@@ -126,5 +129,165 @@ public class CarDAO {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public List<Car> getAllAvailableCars()
+    {
+        List<Car> carList = new ArrayList();
+        String query = "SELECT * FROM car WHERE status='Available' AND is_active=0";
+
+        try (PreparedStatement stmt = connection.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Car car = new Car();
+                car.setCarId(rs.getInt("car_id"));
+                car.setRegistrationNumber(rs.getString("registration_number"));
+                car.setMake(rs.getString("make"));
+                car.setModel(rs.getString("model"));
+                car.setYear(rs.getInt("year"));
+                car.setCapacity(rs.getInt("capacity"));
+                car.setStatus(rs.getString("status"));
+                car.setCarType(rs.getString("car_type"));
+                car.setRatePerKm(rs.getFloat("rate_per_km"));
+                car.setIsActive(rs.getBoolean("is_active"));
+                car.setImageUrl(rs.getString("image_url"));
+                car.setCreatedAt(rs.getTimestamp("created_at"));
+                car.setUpdatedAt(rs.getTimestamp("updated_at"));
+
+                carList.add(car);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return carList;
+    }
+
+    public List<Car> getAllAvailableCarsToAssign()
+    {
+        List<Car> carList = new ArrayList();
+        String query = "SELECT * FROM car WHERE status='Available'";
+
+        try (PreparedStatement stmt = connection.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Car car = new Car();
+                car.setCarId(rs.getInt("car_id"));
+                car.setRegistrationNumber(rs.getString("registration_number"));
+                car.setMake(rs.getString("make"));
+                car.setModel(rs.getString("model"));
+                car.setYear(rs.getInt("year"));
+                car.setCapacity(rs.getInt("capacity"));
+                car.setStatus(rs.getString("status"));
+                car.setCarType(rs.getString("car_type"));
+                car.setRatePerKm(rs.getFloat("rate_per_km"));
+                car.setIsActive(rs.getBoolean("is_active"));
+                car.setImageUrl(rs.getString("image_url"));
+                car.setCreatedAt(rs.getTimestamp("created_at"));
+                car.setUpdatedAt(rs.getTimestamp("updated_at"));
+
+                carList.add(car);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return carList;
+    }
+
+    public boolean updateCarStatus(int carId, boolean isActive) {
+        String query = "UPDATE Car SET is_active = ? WHERE car_id = ?";
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setBoolean(1, isActive);
+            stmt.setInt(2, carId);
+
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0; // Returns true if the update was successful
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean updateAssignedCarStatus(int carId, String status) {
+        String query = "UPDATE Car SET status = ? WHERE car_id = ?";
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, status);
+            stmt.setInt(2, carId);
+
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0; // Returns true if the update was successful
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public List<Car> getAllCarsWithAssignedDriver() {
+        List<Car> carList = new ArrayList<>();
+        String query = "SELECT c.*, d.driver_id, u.name, d.license_number FROM Car c " +
+                "LEFT JOIN driver_Assignment da ON c.car_id = da.car_id " +
+                "LEFT JOIN Driver d ON da.driver_id = d.driver_id " +
+                "LEFT JOIN User u ON d.user_id = u.id";
+
+        try (PreparedStatement stmt = connection.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Car car = new Car();
+                car.setCarId(rs.getInt("car_id"));
+                car.setRegistrationNumber(rs.getString("registration_number"));
+                car.setMake(rs.getString("make"));
+                car.setModel(rs.getString("model"));
+                car.setYear(rs.getInt("year"));
+                car.setCapacity(rs.getInt("capacity"));
+                car.setStatus(rs.getString("status"));
+                car.setCarType(rs.getString("car_type"));
+                car.setRatePerKm(rs.getFloat("rate_per_km"));
+                car.setIsActive(rs.getBoolean("is_active"));
+                car.setImageUrl(rs.getString("image_url"));
+                car.setCreatedAt(rs.getTimestamp("created_at"));
+                car.setUpdatedAt(rs.getTimestamp("updated_at"));
+
+                // Set assigned driver if available
+                if (rs.getInt("driver_id") != 0) {
+                    Driver driver = new Driver();
+                    driver.setDriverId(rs.getInt("driver_id"));
+                    driver.setLicenseNumber(rs.getString("license_number"));
+
+                    User user = new User();
+                    user.setName(rs.getString("name"));
+                    driver.setUser(user);
+
+                    car.setAssignedDriver(driver);
+                }
+
+                carList.add(car);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return carList;
+    }
+
+    public List<Integer> getAssignedDriverIds() {
+        List<Integer> assignedDriverIds = new ArrayList<>();
+        String sql = "SELECT DISTINCT driver_id FROM driver_assignment";
+
+        try (
+             PreparedStatement stmt = connection.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                assignedDriverIds.add(rs.getInt("driver_id"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return assignedDriverIds;
     }
 }

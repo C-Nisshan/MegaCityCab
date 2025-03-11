@@ -34,10 +34,6 @@ public class DriverService {
         return driverDAO.updateDriver(driver);
     }
 
-    public void updateDriverStatus(int driverId, String status) throws SQLException {
-        driverDAO.updateDriverStatus(driverId, status);
-    }
-
     public boolean removeDriver(int driverId) {
         return driverDAO.deleteDriver(driverId);
     }
@@ -67,5 +63,8 @@ public class DriverService {
         return driver;
     }
 
+    public boolean changeDriverStatus(int driverId, String status) {
+        return driverDAO.updateDriverStatus(driverId, status);
+    }
 
 }

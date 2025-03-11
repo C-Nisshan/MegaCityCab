@@ -65,6 +65,15 @@
         <url-pattern>/admin/manage_customers</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>DriverAssignmentServlet</servlet-name>
+        <servlet-class>com.megacitycab.megacitycab.servlets.DriverAssignmentServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DriverAssignmentServlet</servlet-name>
+        <url-pattern>/admin/driver_assignment</url-pattern>
+    </servlet-mapping>
+
     <listener>
         <listener-class>com.megacitycab.megacitycab.listeners.AppStartupListener</listener-class>
     </listener>
