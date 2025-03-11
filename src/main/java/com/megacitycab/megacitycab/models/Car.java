@@ -16,6 +16,47 @@ public class Car {
     private boolean isActive;
     private Date createdAt;
     private Date updatedAt;
+    private Driver assignedDriver;
+
+    public Car(int carId, String registrationNumber, String make, String model, int year, int capacity, String status, String imageUrl, String carType, float ratePerKm, boolean isActive, Date createdAt, Date updatedAt) {
+        this.carId = carId;
+        this.registrationNumber = registrationNumber;
+        this.make = make;
+        this.model = model;
+        this.year = year;
+        this.capacity = capacity;
+        this.status = status;
+        this.imageUrl = imageUrl;
+        this.carType = carType;
+        this.ratePerKm = ratePerKm;
+        this.isActive = isActive;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
+    public Car(int carId) {
+        this.carId = carId;
+    }
+
+    public Car() {
+    }
+
+    public Car(int carId, String registrationNumber, String make, String model, int year, int capacity, String status, String imageUrl, String carType, float ratePerKm, boolean isActive, Date createdAt, Date updatedAt, Driver assignedDriver) {
+        this.carId = carId;
+        this.registrationNumber = registrationNumber;
+        this.make = make;
+        this.model = model;
+        this.year = year;
+        this.capacity = capacity;
+        this.status = status;
+        this.imageUrl = imageUrl;
+        this.carType = carType;
+        this.ratePerKm = ratePerKm;
+        this.isActive = isActive;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.assignedDriver = assignedDriver;
+    }
 
     // Getters and Setters
     public int getCarId() { return carId; }
@@ -56,4 +97,13 @@ public class Car {
 
     public Date getUpdatedAt() { return updatedAt; }
     public void setUpdatedAt(Date updatedAt) { this.updatedAt = updatedAt; }
+
+    // Getter and Setter for assignedDriver
+    public Driver getAssignedDriver() {
+        return assignedDriver;
+    }
+
+    public void setAssignedDriver(Driver assignedDriver) {
+        this.assignedDriver = assignedDriver;
+    }
 }

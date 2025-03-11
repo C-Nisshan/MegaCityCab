@@ -40,6 +40,14 @@ public class User {
         this.role = role;
     }
 
+    public User(int id, String name, String nic, String telephone, String email) {
+        this.id = id;
+        this.name = name;
+        this.nic = nic;
+        this.telephone = telephone;
+        this.email = email;
+    }
+
 
     public User(int id, String username, String name) {
         this.id = id;
