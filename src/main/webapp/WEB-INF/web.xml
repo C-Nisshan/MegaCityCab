@@ -74,6 +74,24 @@
         <url-pattern>/admin/driver_assignment</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>LocationServlet</servlet-name>
+        <servlet-class>com.megacitycab.megacitycab.servlets.LocationServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LocationServlet</servlet-name>
+        <url-pattern>/admin/manage_locations</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PricingServlet</servlet-name>
+        <servlet-class>com.megacitycab.megacitycab.servlets.PricingServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PricingServlet</servlet-name>
+        <url-pattern>/admin/manage_pricing</url-pattern>
+    </servlet-mapping>
+
     <listener>
         <listener-class>com.megacitycab.megacitycab.listeners.AppStartupListener</listener-class>
     </listener>
