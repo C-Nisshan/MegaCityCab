@@ -128,6 +128,30 @@ public class DatabaseInitializer {
                             ");";
             stmt.execute(createDriverAssignmentTable);
 
+            // Create Location table
+            String createLocationTable =
+                    "CREATE TABLE IF NOT EXISTS Location (" +
+                            "    location_id INT AUTO_INCREMENT PRIMARY KEY," +
+                            "    location_name VARCHAR(255) NOT NULL UNIQUE," +
+                            "    created_at DATETIME DEFAULT CURRENT_TIMESTAMP," +
+                            "    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP" +
+                            ");";
+            stmt.execute(createLocationTable);
+
+            // Create Pricing table
+            String createPricingTable =
+                    "CREATE TABLE IF NOT EXISTS Pricing (" +
+                            "    pricing_id INT AUTO_INCREMENT PRIMARY KEY," +
+                            "    pickup_location INT NOT NULL," +
+                            "    dropoff_location INT NOT NULL," +
+                            "    price DECIMAL(10,2) NOT NULL," +
+                            "    created_at DATETIME DEFAULT CURRENT_TIMESTAMP," +
+                            "    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP," +
+                            "    FOREIGN KEY (pickup_location) REFERENCES Location(location_id) ON DELETE CASCADE," +
+                            "    FOREIGN KEY (dropoff_location) REFERENCES Location(location_id) ON DELETE CASCADE" +
+                            ");\n";
+            stmt.execute(createPricingTable);
+
             System.out.println("All tables checked/created successfully.");
 
         } catch (Exception e) {

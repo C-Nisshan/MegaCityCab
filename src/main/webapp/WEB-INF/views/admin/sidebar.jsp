@@ -48,6 +48,8 @@
         <a href="/MegaCityCab_war_exploded/admin/manage_cars">Car Management</a>
         <a href="/MegaCityCab_war_exploded/admin/manage_drivers">Driver Management</a>
         <a href="/MegaCityCab_war_exploded/admin/manage_customers">Customer Management</a>
+        <a href="/MegaCityCab_war_exploded/admin/manage_locations">Location Management</a>
+        <a href="/MegaCityCab_war_exploded/admin/manage_pricing">Pricing Management</a>
         <a href="/MegaCityCab_war_exploded/admin/driver_assignment">Assign Driver</a>
     </div>
     </body>
