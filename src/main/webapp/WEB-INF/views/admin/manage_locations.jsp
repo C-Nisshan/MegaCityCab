@@ -11,6 +11,9 @@
 <head>
     <title>Manage locations</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <style>
         .main-container {
             display: flex;
@@ -26,6 +29,10 @@
     </style>
 </head>
 <body>
+
+<!-- Navbar -->
+<jsp:include page="/WEB-INF/views/navbar.jsp" />
+
 <div class="main-container">
     <jsp:include page="/WEB-INF/views/admin/sidebar.jsp"/>
 
@@ -188,6 +195,9 @@
         });
     });
 </script>
+
+<!-- Footer -->
+<jsp:include page="/WEB-INF/views/footer.jsp" />
 
 </body>
 </html>

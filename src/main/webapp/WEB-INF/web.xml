@@ -25,15 +25,6 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>HomeServlet</servlet-name>
-        <servlet-class>com.megacitycab.megacitycab.servlets.HomeServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>HomeServlet</servlet-name>
-        <url-pattern>/user/home</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>CarServlet</servlet-name>
         <servlet-class>com.megacitycab.megacitycab.servlets.CarServlet</servlet-class>
     </servlet>
@@ -92,6 +83,52 @@
         <url-pattern>/admin/manage_pricing</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>CustomerDashboardServlet</servlet-name>
+        <servlet-class>com.megacitycab.megacitycab.servlets.CustomerDashboardServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CustomerDashboardServlet</servlet-name>
+        <url-pattern>/customer/dashboard</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>BookingServlet</servlet-name>
+        <servlet-class>com.megacitycab.megacitycab.servlets.BookingServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BookingServlet</servlet-name>
+        <url-pattern>/booking</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AboutServlet</servlet-name>
+        <servlet-class>com.megacitycab.megacitycab.servlets.AboutServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AboutServlet</servlet-name>
+        <url-pattern>/about</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ContactServlet</servlet-name>
+        <servlet-class>com.megacitycab.megacitycab.servlets.ContactServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ContactServlet</servlet-name>
+        <url-pattern>/contact</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SignupServlet</servlet-name>
+        <servlet-class>com.megacitycab.megacitycab.servlets.SignupServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SignupServlet</servlet-name>
+        <url-pattern>/signup</url-pattern>
+    </servlet-mapping>
+
+
     <listener>
         <listener-class>com.megacitycab.megacitycab.listeners.AppStartupListener</listener-class>
     </listener>
@@ -100,8 +137,18 @@
         <session-timeout>30</session-timeout>
     </session-config>
 
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>com.megacitycab.megacitycab.servlets.LogoutServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+
     <welcome-file-list>
-        <welcome-file>login.jsp</welcome-file>
+        <welcome-file>home.jsp</welcome-file>
     </welcome-file-list>
 </web-app>
 

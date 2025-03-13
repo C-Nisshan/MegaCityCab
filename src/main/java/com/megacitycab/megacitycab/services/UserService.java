@@ -1,7 +1,6 @@
 package com.megacitycab.megacitycab.services;
 
 import com.megacitycab.megacitycab.dao.UserDAO;
-import com.megacitycab.megacitycab.models.Car;
 import com.megacitycab.megacitycab.models.User;
 import jakarta.servlet.http.HttpServletRequest;
 import org.mindrot.jbcrypt.BCrypt;
@@ -36,10 +35,6 @@ public class UserService {
         return userDAO.updateUser(user);
     }
 
-    public boolean authenticateUser(String username, String password) {
-        return userDAO.authenticateUser(username, password);
-    }
-
     public String getUserRole(String username) {
         return userDAO.getUserRole(username);
     }
@@ -64,7 +59,7 @@ public class UserService {
             user.setId(Integer.parseInt(userId));
         }
         user.setUsername(username);
-        user.setPassword(BCrypt.hashpw(password, BCrypt.gensalt(12))); // Hash password
+        user.setPassword(password);
         user.setName(name);
         user.setAddress(address);
         user.setNic(nic);

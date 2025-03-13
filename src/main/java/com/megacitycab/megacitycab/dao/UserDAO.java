@@ -149,26 +149,28 @@ public class UserDAO {
     }
 
     // Authenticate User Securely
-    public boolean authenticateUser(String username, String password) {
+    public User authenticateUser(String username, String password) {
         try (PreparedStatement stmt = connection.prepareStatement(
-                "SELECT password FROM User WHERE username = ?")) {
+                "SELECT * FROM User WHERE username = ?")) {
             stmt.setString(1, username);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
                 String storedHashedPassword = rs.getString("password");
-                boolean passwordMatch = BCrypt.checkpw(password, storedHashedPassword);
-                System.out.println("Password Matched: " + passwordMatch);
-                return passwordMatch;
-            } else {
-                System.out.println("User not found.");
+                if (BCrypt.checkpw(password, storedHashedPassword)) {
+                    // If password matches, create User object
+                    User user = new User();
+                    user.setId(rs.getInt("id"));
+                    user.setUsername(rs.getString("username"));
+                    user.setRole(rs.getString("role"));
+                    return user;
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+        return null; // Return null if authentication fails
     }
-
 
     // Get User Role Securely
     public String getUserRole(String username) {
@@ -199,6 +201,44 @@ public class UserDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean isCustomerExists() {
+        String sql = "SELECT COUNT(*) FROM user WHERE role = 'Customer'";
+        try (PreparedStatement stmt = connection.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public User getUserByUsername(String username) {
+        String sql = "SELECT * FROM user WHERE username = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, username);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new User(
+                            rs.getInt("id"),
+                            rs.getString("username"),
+                            rs.getString("password"), // Ensure this is hashed
+                            rs.getString("full_name"),
+                            rs.getString("address"),
+                            rs.getString("nic"),
+                            rs.getString("phone"),
+                            rs.getString("email"),
+                            rs.getString("role")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

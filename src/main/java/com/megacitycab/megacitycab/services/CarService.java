@@ -117,4 +117,8 @@ public class CarService {
     public List<Integer> getAssignedDriverIds() {
         return carDAO.getAssignedDriverIds();
     }
+
+    public List<Car> getAllAvailableCars() throws Exception {
+        return carDAO.getAllAvailableCars();
+    }
 }

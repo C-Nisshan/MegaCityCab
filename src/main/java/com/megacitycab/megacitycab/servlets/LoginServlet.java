@@ -1,6 +1,7 @@
 package com.megacitycab.megacitycab.servlets;
 
 import com.megacitycab.megacitycab.dao.LoginDAO;
+import com.megacitycab.megacitycab.models.User;
 import com.megacitycab.megacitycab.services.AuthenticationService;
 import com.megacitycab.megacitycab.utils.DatabaseConnection;
 
@@ -29,32 +30,38 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         AuthenticationService authService = new AuthenticationService(DatabaseConnection.getInstance().getConnection());
-        System.out.println("Auhtentication Successful using servlet");
 
-        // Authenticate user and fetch their role
-        String role = authService.getRoleByCredentials(username, password);
+        // Authenticate user and get User object
+        User user = authService.getUserByCredentials(username, password);
 
-        // insert into login table.
-        String ipAddress = request.getRemoteAddr();
-        boolean success = role != null;
-        LoginDAO loginDAO = new LoginDAO(DatabaseConnection.getInstance().getConnection());
-        loginDAO.logLoginAttempt(username, ipAddress, success);
+        if (user != null) {
+            request.getSession().setAttribute("userId", user.getId());
+            request.getSession().setAttribute("username", user.getUsername());
+            request.getSession().setAttribute("role", user.getRole());
 
-        if (role != null) {
-            request.getSession().setAttribute("username", username);
-            request.getSession().setAttribute("role", role);
+            String ipAddress = request.getRemoteAddr();
+            LoginDAO loginDAO = new LoginDAO(DatabaseConnection.getInstance().getConnection());
+            loginDAO.logLoginAttempt(username, ipAddress, true);
 
-            if ("Admin".equals(role)) {
+            Integer userId = (Integer) request.getSession().getAttribute("userId");
+            if (userId != null) {
+                System.out.println("Logged-in User ID: " + userId);
+            }
+
+            if ("Admin".equals(user.getRole())) {
                 response.sendRedirect(request.getContextPath() + "/admin/dashboard");
-                System.out.println("Successfully redirected to /admin/dashboard");
+            } else if ("Customer".equals(user.getRole())) {
+                response.sendRedirect(request.getContextPath() + "/customer/dashboard");
+            } else if ("Driver".equals(user.getRole())) {
+                response.sendRedirect(request.getContextPath() + "/driver/dashboard");
             } else {
-                response.sendRedirect(request.getContextPath() + "/user/home");
-                System.out.println("Successfully redirected to /user/home");
+                response.sendRedirect(request.getContextPath());
             }
         } else {
             request.setAttribute("error", "Invalid username or password");
-            request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request, response);
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
         }
     }
+
 }
 

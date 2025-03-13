@@ -14,7 +14,12 @@ public class AdminSeeder {
         }
 
         // Verify password after seeding
-        boolean isMatch = userDAO.authenticateUser("admin", "admin123");
+        User user = userDAO.authenticateUser("admin", "admin123");
+        boolean isMatch=false;
+        if(user!=null) {
+            System.out.println("Default admin created with hashed password.");
+            isMatch=true;
+        }
         System.out.println("Password verification after seeding: " + isMatch);
     }
 }

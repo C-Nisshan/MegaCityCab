@@ -20,30 +20,36 @@
             }
             .sidebar {
                 width: 250px;
-                background-color: #333;
+                background-color: #002855;
                 color: white;
-                padding: 15px;
+                padding: 20px;
                 height: 100vh;
+                position: sticky;
+                top: 0;
+                left: 0;
             }
             .sidebar a {
                 display: block;
-                padding: 10px;
+                padding: 12px;
                 color: white;
                 text-decoration: none;
-                margin-bottom: 5px;
+                margin: 5px 0;
+                border-radius: 5px;
+                transition: background 0.3s, color 0.3s;
             }
             .sidebar a:hover {
-                background-color: #555;
+                background-color: #FFFFFF;
+                color: #004D99;
             }
-            .content {
-                flex: 1;
-                padding: 20px;
+            .sidebar a.active {
+                background-color: #004D99;
+                color: #FFFFFF;
+                font-weight: bold;
             }
         </style>
     </head>
     <body>
     <div class="sidebar">
-        <h3>Admin Panel</h3>
         <a href="/MegaCityCab_war_exploded/admin/dashboard">Dashboard</a>
         <a href="/MegaCityCab_war_exploded/admin/manage_cars">Car Management</a>
         <a href="/MegaCityCab_war_exploded/admin/manage_drivers">Driver Management</a>
