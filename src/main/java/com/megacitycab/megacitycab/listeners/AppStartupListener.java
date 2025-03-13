@@ -3,6 +3,7 @@ package com.megacitycab.megacitycab.listeners;
 
 import com.megacitycab.megacitycab.utils.AdminSeeder;
 
+import com.megacitycab.megacitycab.utils.CustomerSeeder;
 import com.megacitycab.megacitycab.utils.DatabaseConnection;
 import com.megacitycab.megacitycab.utils.DatabaseInitializer;
 import jakarta.servlet.ServletContextEvent;
@@ -23,6 +24,7 @@ public class AppStartupListener implements ServletContextListener {
         Connection connection = DatabaseConnection.getInstance().getConnection();
         DatabaseInitializer.initializeDatabase(connection); // Create tables
         AdminSeeder.seedAdmin(); // Seed admin user
+        CustomerSeeder.seedCustomer(); // Seed customer
         System.out.println("Database initialization and admin user seeding completed.");
     }
 

@@ -11,17 +11,6 @@ import java.io.IOException;
 import java.sql.Connection;
 
 public class AdminDashboardServlet extends HttpServlet {
-    private CarService carService;
-
-    @Override
-    public void init() throws ServletException {
-        try {
-            Connection connection = DatabaseConnection.getInstance().getConnection(); // Get database connection
-            carService = new CarService(connection); // Initialize CarService with the connection
-        } catch (Exception e) {
-            throw new ServletException("Error initializing CarService", e);
-        }
-    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

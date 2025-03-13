@@ -3,6 +3,7 @@ package com.megacitycab.megacitycab.services;
 import com.megacitycab.megacitycab.dao.CookieDAO;
 import com.megacitycab.megacitycab.dao.TokenDAO;
 import com.megacitycab.megacitycab.dao.UserDAO;
+import com.megacitycab.megacitycab.models.User;
 import com.megacitycab.megacitycab.utils.DatabaseConnection;
 
 import java.sql.Connection;
@@ -16,7 +17,7 @@ public class AuthenticationService {
         this.userDAO = new UserDAO(connection);
     }
 
-    public boolean authenticateUser(String username, String password) {
+    public User getUserByCredentials(String username, String password) {
         // Generate a unique cookie value
         String generatedCookieValue = UUID.randomUUID().toString();
 
@@ -37,14 +38,15 @@ public class AuthenticationService {
         // Save the token
         TokenDAO tokenDAO = new TokenDAO(DatabaseConnection.getInstance().getConnection());
         tokenDAO.saveToken(username, generatedToken, tokenExpiration);
-        return userDAO.authenticateUser(username, password); // Uses BCrypt for password validation
+
+        return userDAO.authenticateUser(username, password);
     }
 
     public String getRoleByCredentials(String username, String password) {
-        boolean isAuthenticated = authenticateUser(username, password);
-        System.out.println("User Authenticated: " + isAuthenticated);
+        User user = getUserByCredentials(username, password);
+        System.out.println("User Authenticated: " + user);
 
-        if (isAuthenticated) {
+        if (user != null) {
             String role = userDAO.getUserRole(username);
             System.out.println("Retrieved Role: " + role);
             return role;

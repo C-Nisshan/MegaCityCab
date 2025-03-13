@@ -26,10 +26,6 @@ public class DriverAssignmentService {
         this.driverService = new DriverService(connection);
     }
 
-    public List<Car> getAllAvailableCarsToAssign() throws Exception {
-        return carDAO.getAllAvailableCarsToAssign();
-    }
-
     public List<Driver> getAllAvailableDrivers() throws SQLException {
         return driverDAO.getAllDrivers();
     }

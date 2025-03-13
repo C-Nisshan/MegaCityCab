@@ -11,6 +11,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Customer Management</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <style>
     .main-container {
       display: flex;
@@ -26,6 +28,9 @@
   </style>
 </head>
 <body>
+
+<!-- Navbar -->
+<jsp:include page="/WEB-INF/views/navbar.jsp" />
 
 <div class="main-container">
   <jsp:include page="/WEB-INF/views/admin/sidebar.jsp"/>
@@ -100,7 +105,7 @@
   </div>
 </div>
 
-<!-- Add Driver Modal -->
+<!-- Add Customer Modal -->
 <div class="modal fade" id="addCustomerModal" tabindex="-1" role="dialog" aria-labelledby="addCustomerModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -273,6 +278,9 @@
     });
   });
 </script>
+
+<!-- Footer -->
+<jsp:include page="/WEB-INF/views/footer.jsp" />
 
 </body>
 </html>
