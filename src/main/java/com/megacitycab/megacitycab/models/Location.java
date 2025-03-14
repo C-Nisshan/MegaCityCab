@@ -6,6 +6,10 @@ public class Location extends DateEntity{
 
     public Location() {}
 
+    public Location(String locationName) {
+        this.locationName = locationName;
+    }
+
     public Location(int locationId, String locationName) {
         this.locationId = locationId;
         this.locationName = locationName;

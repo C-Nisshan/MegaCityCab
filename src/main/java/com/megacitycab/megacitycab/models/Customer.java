@@ -14,12 +14,16 @@ public class Customer extends DateEntity {
         this.user = user;
     }
 
+    public Customer(int customerId) {
+        this.customerId = customerId;
+    }
+
     // Getters and Setters
     public int getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(int driverId) {
+    public void setCustomerId(int customerId) {
         this.customerId = customerId;
     }
 

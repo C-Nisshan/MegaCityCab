@@ -65,4 +65,11 @@ public class PricingService {
         return pricingDAO.deletePricing(pricingId);
     }
 
+    public BigDecimal getPricing(HttpServletRequest request) throws Exception {
+        int pickupLocation = Integer.parseInt(request.getParameter("pickupLocation"));
+        int dropoffLocation = Integer.parseInt(request.getParameter("dropoffLocation"));
+
+        return pricingDAO.getPrice(pickupLocation, dropoffLocation);
+    }
+
 }

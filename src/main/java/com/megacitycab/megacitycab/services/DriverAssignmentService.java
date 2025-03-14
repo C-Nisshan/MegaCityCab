@@ -37,7 +37,6 @@ public class DriverAssignmentService {
         driverAssignmentDAO.addDriverAssignment(driverAssignment);
 
         // Update car and driver status after assignment
-        carService.changeAssignedCarStatus(car.getCarId(),"Unavailable");
         driverService.changeDriverStatus(driver.getDriverId(), "Unavailable");
 
         return true;
