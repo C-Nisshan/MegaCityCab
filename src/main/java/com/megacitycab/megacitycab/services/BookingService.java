@@ -65,5 +65,9 @@ public class BookingService {
         return bookingDAO.getBookingsByCustomerId(customerId);
     }
 
+    public List<Booking> getAllBookings(HttpServletRequest request) throws Exception {
+        return bookingDAO.getAllBookings();
+    }
+
 
 }
