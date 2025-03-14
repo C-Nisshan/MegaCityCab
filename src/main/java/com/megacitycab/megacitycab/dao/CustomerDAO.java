@@ -111,4 +111,18 @@ public class CustomerDAO {
         return -1; // Customer ID not found
     }
 
+    public int getTotalCustomers() {
+        String sql = "SELECT COUNT(*) FROM customer";
+        try (PreparedStatement stmt = connection.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0; // Return 0 if an error occurs
+    }
+
+
 }
