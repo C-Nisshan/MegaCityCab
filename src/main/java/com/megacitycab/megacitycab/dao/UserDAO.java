@@ -30,7 +30,8 @@ public class UserDAO {
         int generatedUserId = -1; // Default value if not retrieved
 
         try (PreparedStatement stmt = connection.prepareStatement(
-                "INSERT INTO user (username, password, name, address, nic, telephone, email, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                "INSERT INTO user (username, password, name, address, " +
+                        "nic, telephone, email, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
                 Statement.RETURN_GENERATED_KEYS)) {
 
             String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(12)); // Hash password
