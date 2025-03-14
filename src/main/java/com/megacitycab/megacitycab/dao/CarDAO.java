@@ -52,7 +52,9 @@ public class CarDAO {
     }
 
     public void saveCar(Car car) throws SQLException {
-        String sql = "INSERT INTO car (registration_number, make, model, year, capacity, status, car_type, rate_per_km, is_active, image_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO car (registration_number, make, model, year," +
+                " capacity, status, car_type, rate_per_km, is_active, " +
+                "image_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setString(1, car.getRegistrationNumber());

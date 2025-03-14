@@ -1,6 +1,8 @@
 
 package com.megacitycab.megacitycab.listeners;
 
+import com.megacitycab.megacitycab.observers.AdminCreationLogger;
+import com.megacitycab.megacitycab.observers.AdminCreationObserver;
 import com.megacitycab.megacitycab.utils.AdminSeeder;
 
 import com.megacitycab.megacitycab.utils.CustomerSeeder;
@@ -17,6 +19,10 @@ public class AppStartupListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         System.out.println("Application is starting up...");
+
+        // Register observers
+        AdminCreationObserver.addObserver(new AdminCreationLogger());
+
         AdminSeeder.seedAdmin();
         System.out.println("Admin user seeding completed.");
 
