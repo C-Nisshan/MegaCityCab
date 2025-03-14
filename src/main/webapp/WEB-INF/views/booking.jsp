@@ -28,7 +28,8 @@
 <!-- Navbar -->
 <jsp:include page="/WEB-INF/views/navbar.jsp" />
 
-<div class="container mt-4">
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Choose Your Ride</h2>
     <div class="row">
         <% if(carList != null && !carList.isEmpty()) { %>
         <% for (Car car : carList) { %>
@@ -37,19 +38,19 @@
                 <% if (car.getImageUrl() != null && !car.getImageUrl().isEmpty()) { %>
                 <img src="<%= request.getContextPath() + car.getImageUrl() %>" class="card-img-top" alt="Car Image" style="height: 200px; object-fit: cover;">
                 <% } else { %>
-                <div class="text-center bg-light" style="height: 200px; display: flex; align-items: center; justify-content: center;">
+                <div class="text-center bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
                     <span>No Image</span>
                 </div>
                 <% } %>
-                <div class="card-body">
+                <div class="card-body text-center">
                     <h5 class="card-title"><%= car.getMake() %> <%= car.getModel() %></h5>
                     <p class="card-text">
-                        <strong>Registration No:</strong> <%= car.getRegistrationNumber() %><br>
+                        <strong>Reg No:</strong> <%= car.getRegistrationNumber() %><br>
                         <strong>Capacity:</strong> <%= car.getCapacity() %> persons<br>
                         <strong>Type:</strong> <%= car.getCarType() %><br>
                         <strong>Rate:</strong> Rs<%= car.getRatePerKm() %> per km
                     </p>
-                    <button class="btn btn-success btn-block" onclick="openBookingModal(<%= car.getCarId() %>)">Book Now</button>
+                    <button class="btn btn-success w-100" onclick="openBookingModal(<%= car.getCarId() %>)">Book Now</button>
                 </div>
             </div>
         </div>
@@ -140,6 +141,23 @@
         });
     });
 </script>
+
+<style>
+    body {
+        background: #f8f9fa;
+    }
+    .card {
+        border-radius: 15px;
+        transition: transform 0.3s;
+    }
+    .card:hover {
+        transform: scale(1.05);
+    }
+    .modal-content {
+        border-radius: 10px;
+    }
+</style>
+
 
 </body>
 </html>

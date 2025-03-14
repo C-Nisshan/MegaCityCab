@@ -121,4 +121,8 @@ public class CarService {
     public List<Car> getAllAvailableCars() throws Exception {
         return carDAO.getAllAvailableCars();
     }
+
+    public int getTotalCars() {
+        return carDAO.getTotalCars();
+    }
 }

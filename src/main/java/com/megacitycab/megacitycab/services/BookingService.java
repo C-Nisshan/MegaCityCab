@@ -69,5 +69,20 @@ public class BookingService {
         return bookingDAO.getAllBookings();
     }
 
+    public int getTotalPendingBookings() {
+        return bookingDAO.getTotalPendingBookings();
+    }
+
+    public int getTotalConfirmedBookings() {
+        return bookingDAO.getTotalConfirmedBookings();
+    }
+
+    public int getTotalProcessingBookings() {
+        return bookingDAO.getTotalProcessingBookings();
+    }
+
+    public int getTotalCancelledBookings() {
+        return bookingDAO.getTotalCancelledBookings();
+    }
 
 }

@@ -134,7 +134,8 @@ public class CarDAO {
     public List<Car> getAllAvailableCars()
     {
         List<Car> carList = new ArrayList();
-        String query = "SELECT * FROM car WHERE status='Available' AND is_active=0";
+        String query = "SELECT * FROM car WHERE status='Available' AND is_active=0 " +
+                "AND car_id IN (SELECT car_id FROM driver_assignment)";
 
         try (PreparedStatement stmt = connection.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
@@ -305,4 +306,18 @@ public class CarDAO {
         }
         return null; // Return null if car_id not found
     }
+
+    public int getTotalCars() {
+        String sql = "SELECT COUNT(*) FROM car";
+        try (PreparedStatement stmt = connection.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0; // Return 0 if an error occurs
+    }
+
 }

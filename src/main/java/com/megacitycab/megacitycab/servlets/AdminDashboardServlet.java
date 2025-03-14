@@ -5,6 +5,7 @@ import com.megacitycab.megacitycab.models.Car;
 import com.megacitycab.megacitycab.services.BookingService;
 import com.megacitycab.megacitycab.services.CarService;
 import com.megacitycab.megacitycab.services.CustomerService;
+import com.megacitycab.megacitycab.services.DriverService;
 import com.megacitycab.megacitycab.utils.DatabaseConnection;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -17,12 +18,18 @@ import java.util.List;
 public class AdminDashboardServlet extends HttpServlet {
 
     private BookingService bookingService;
+    private CarService carService;
+    private CustomerService customerService;
+    private DriverService driverService;
 
     @Override
     public void init() throws ServletException {
         try {
             Connection connection = DatabaseConnection.getInstance().getConnection();
             bookingService = new BookingService(connection);
+            carService = new CarService(connection);
+            customerService = new CustomerService(connection);
+            driverService = new DriverService(connection);
         } catch (Exception e) {
             throw new ServletException("Error initializing services", e);
         }
@@ -48,6 +55,24 @@ public class AdminDashboardServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
         request.setAttribute("bookings", bookings);
+
+        int totalPendingBookings = bookingService.getTotalPendingBookings();
+        request.setAttribute("totalPendingBookings", totalPendingBookings);
+
+        int totalConfirmedBookings = bookingService.getTotalConfirmedBookings();
+        request.setAttribute("totalConfirmedBookings", totalConfirmedBookings);
+
+        int totalProcessingBookings = bookingService.getTotalProcessingBookings();
+        request.setAttribute("totalProcessingBookings", totalProcessingBookings);
+
+        int totalCancelledBookings = bookingService.getTotalCancelledBookings();
+        request.setAttribute("totalCancelledBookings", totalCancelledBookings);
+
+        int totalCars = carService.getTotalCars();
+        request.setAttribute("totalCars", totalCars);
+
+        int totalCustomers = customerService.getTotalCustomers();
+        request.setAttribute("totalCustomers", totalCustomers);
 
         try {
             // Forward the request to the dashboard JSP

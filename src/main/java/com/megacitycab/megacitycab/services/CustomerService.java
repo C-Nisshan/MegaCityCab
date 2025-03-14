@@ -53,4 +53,8 @@ public class CustomerService {
     public int getCustomerIdByUserId(int userId) {
         return customerDAO.getCustomerIdByUserId(userId);
     }
+
+    public int getTotalCustomers() {
+        return customerDAO.getTotalCustomers();
+    }
 }

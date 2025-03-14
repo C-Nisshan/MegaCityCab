@@ -31,6 +31,7 @@ public class BookingServlet extends HttpServlet {
             carService = new CarService(connection);
             bookingService = new BookingService(connection);
             locationService = new LocationService(connection);
+            customerService = new CustomerService(connection);
         } catch (Exception e) {
             throw new ServletException("Error initializing services", e);
         }

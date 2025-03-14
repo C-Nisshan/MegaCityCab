@@ -181,4 +181,57 @@ public class BookingDAO {
         return bookings;
     }
 
+    public int getTotalPendingBookings() {
+        String sql = "SELECT COUNT(*) FROM Booking WHERE status = 'Pending'";
+        try (PreparedStatement stmt = connection.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0; // Return 0 if an error occurs
+    }
+
+    public int getTotalConfirmedBookings() {
+        String sql = "SELECT COUNT(*) FROM Booking WHERE status = 'Confirmed'";
+        try (PreparedStatement stmt = connection.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0; // Return 0 if an error occurs
+    }
+
+    public int getTotalProcessingBookings() {
+        String sql = "SELECT COUNT(*) FROM Booking WHERE status = 'Processing'";
+        try (PreparedStatement stmt = connection.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0; // Return 0 if an error occurs
+    }
+
+    public int getTotalCancelledBookings() {
+        String sql = "SELECT COUNT(*) FROM Booking WHERE status = 'Cancelled'";
+        try (PreparedStatement stmt = connection.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0; // Return 0 if an error occurs
+    }
+
+
 }
