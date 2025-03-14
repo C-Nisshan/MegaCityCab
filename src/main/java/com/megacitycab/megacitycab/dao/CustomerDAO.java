@@ -94,4 +94,21 @@ public class CustomerDAO {
         }
     }
 
+    public int getCustomerIdByUserId(int userId) {
+        String sql = "SELECT customer_id FROM Customer WHERE user_id = ?";
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt("customer_id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1; // Customer ID not found
+    }
+
 }

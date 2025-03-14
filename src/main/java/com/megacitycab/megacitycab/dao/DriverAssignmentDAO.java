@@ -78,4 +78,16 @@ public class DriverAssignmentDAO {
         return false;
     }
 
+    public Integer getDriverAssignmentIdByCarId(int carId) throws SQLException {
+        String sql = "SELECT driver_assignment_id FROM driver_assignment WHERE car_id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, carId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("driver_assignment_id");
+            }
+        }
+        return null; // Return null if no assignment found
+    }
+
 }

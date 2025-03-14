@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page import="com.megacitycab.megacitycab.models.Booking" %>
 <html>
     <head>
         <title>Admin Dashboard</title>

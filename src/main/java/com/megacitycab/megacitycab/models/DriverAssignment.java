@@ -5,6 +5,10 @@ public class DriverAssignment extends DateEntity{
     private Car car;
     private Driver driver;
 
+    public DriverAssignment() {
+
+    }
+
     public DriverAssignment(int assignmentID, Car car, Driver driver) {
         this.assignmentID = assignmentID;
         this.car = car;

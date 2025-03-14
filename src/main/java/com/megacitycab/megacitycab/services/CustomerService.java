@@ -48,4 +48,9 @@ public class CustomerService {
 
         return customer;
     }
+
+    // Get customer_id from user_id
+    public int getCustomerIdByUserId(int userId) {
+        return customerDAO.getCustomerIdByUserId(userId);
+    }
 }

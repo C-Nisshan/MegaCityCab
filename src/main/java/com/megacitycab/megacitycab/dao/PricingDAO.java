@@ -1,6 +1,8 @@
 package com.megacitycab.megacitycab.dao;
 
 import com.megacitycab.megacitycab.models.Pricing;
+
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -83,4 +85,22 @@ public class PricingDAO {
             return false;
         }
     }
+
+    // Get price for a given pickup and dropoff location
+    public BigDecimal getPrice(int pickupLocation, int dropoffLocation) {
+        String sql = "SELECT price FROM pricing WHERE pickup_location = ? AND dropoff_location = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, pickupLocation);
+            stmt.setInt(2, dropoffLocation);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getBigDecimal("price");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null; // Return null if no price found
+    }
+
 }

@@ -152,6 +152,26 @@ public class DatabaseInitializer {
                             ");\n";
             stmt.execute(createPricingTable);
 
+            // Create Booking table
+            String createBookingTable =
+                    "CREATE TABLE IF NOT EXISTS Booking (\n" +
+                            "    booking_id INT AUTO_INCREMENT PRIMARY KEY,\n" +
+                            "    customer_id INT NOT NULL,\n" +
+                            "    assignment_id INT NOT NULL,\n" +
+                            "    pickup_location_id INT NOT NULL,\n" +
+                            "    dropoff_location_id INT NOT NULL,\n" +
+                            "    booking_date DATETIME NOT NULL,\n" +
+                            "    total_amount DECIMAL(10,2) NOT NULL,\n" +
+                            "    status ENUM('Pending', 'Confirmed', 'Processing', 'Cancelled') NOT NULL DEFAULT 'Pending',\n" +
+                            "    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,\n" +
+                            "    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\n" +
+                            "    FOREIGN KEY (customer_id) REFERENCES Customer(customer_id) ON DELETE CASCADE,\n" +
+                            "    FOREIGN KEY (assignment_id) REFERENCES Driver_Assignment(driver_assignment_id) ON DELETE CASCADE,\n" +
+                            "    FOREIGN KEY (pickup_location_id) REFERENCES Location(location_id) ON DELETE CASCADE,\n" +
+                            "    FOREIGN KEY (dropoff_location_id) REFERENCES Location(location_id) ON DELETE CASCADE\n" +
+                            ");\n";
+            stmt.execute(createBookingTable);
+
             System.out.println("All tables checked/created successfully.");
 
         } catch (Exception e) {

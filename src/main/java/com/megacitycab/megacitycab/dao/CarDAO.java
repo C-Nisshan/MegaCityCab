@@ -290,4 +290,19 @@ public class CarDAO {
         }
         return assignedDriverIds;
     }
+
+    public Float getRatePerKm(int carId) {
+        String sql = "SELECT rate_per_km FROM Car WHERE car_id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, carId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getFloat("rate_per_km");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null; // Return null if car_id not found
+    }
 }
